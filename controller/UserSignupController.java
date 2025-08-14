@@ -9,17 +9,17 @@ import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserSignupController implements Controller {
     private final UserService userService = new UserService();
 
-    public boolean supports(String method, String path) {
-        if ((method.equals("POST") || method.equals("GET")) && path.equals("/signup")) {
-            return true;
-        } else {
-            return false;
-        }
+    public List<Route> routes() {
+        return List.of(
+                new Route("POST", "/signup", this),
+                new Route("GET", "/signup", this)
+        );
     }
 
     public void handle(Request req, PrintWriter writer) throws IOException {
